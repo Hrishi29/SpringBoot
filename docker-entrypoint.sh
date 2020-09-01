@@ -1,10 +1,10 @@
 #!/bin/sh
 
-touch /config/application-prod.properties
+touch /config/application.properties
 
 if [ -d /run/secrets/ ]; then
     for filename in /run/secrets/*; do
-      echo "${filename##*/}"=`cat $filename`" >> /config/application-prod.properties"
+      echo "${filename##*/}"=`cat $filename`" >> /config/application.properties"
     done
 fi
 
