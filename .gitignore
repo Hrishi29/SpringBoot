@@ -1,0 +1,10 @@
+.classpath
+.project
+.settings/
+target/
+*/target/**
+.idea
+*.iws
+*.iml
+*.ipr
+./src/main/resources/application-prod.properties
