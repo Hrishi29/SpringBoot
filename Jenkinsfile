@@ -25,8 +25,9 @@ node {
     }
 
     stage("docker push") {
-        withDockerRegistry(credentialsId: 'dockerhub') {
-             sh "docker push ${DOCKERHUB_REPO}:${DOCKER_IMAGE_VERSION}"
+        withCredentials([usernamePassword(credentialsId: 'dockertestspring', passwordVariable: 'pass', usernameVariable: 'user')]) {
+            sh "docker login -u $user -p $pass"
+            sh "docker push ${DOCKERHUB_REPO}:${DOCKER_IMAGE_VERSION}"
         }
     }
 
@@ -37,7 +38,11 @@ node {
                   docker service create \
                     --replicas 1 \
                     --name ${DOCKER_SERVICE_ID} \
-                    --env spring.profiles.Active=prod \
+                    --publish 8082:8082 \
+                    --secret spring.datasource.url \
+                    --secret spring.datasource.username \
+                    --secret spring.datasource.password \
+                    --env spring.profiles.active=prod \
                     ${DOCKERHUB_REPO}:${DOCKER_IMAGE_VERSION}
                 else
                   docker service update \
@@ -54,10 +59,5 @@ node {
             sh "docker container prune -f"
             sh "docker image prune -af"
         }
-    }
-
-    stage("cleanup") {
-        sh "docker container prune -f"
-        sh "docker rmi ${DOCKERHUB_REPO}:${DOCKER_IMAGE_VERSION}"
     }
 }
