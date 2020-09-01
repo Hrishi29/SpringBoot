@@ -47,7 +47,7 @@ node {
                   docker service update \
                     --image ${DOCKERHUB_REPO}:${DOCKER_IMAGE_VERSION} \
                     ${DOCKER_SERVICE_ID}
-                FI
+                fi
             """
         }
         catch (e) {
