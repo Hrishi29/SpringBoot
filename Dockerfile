@@ -11,8 +11,6 @@ RUN touch /mySpring.jar && mkdir -p /config
 
 WORKDIR /
 
-EXPOSE 8082
-
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 CMD [ "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /mySpring.jar" ]
