@@ -16,7 +16,6 @@ node {
     }
 
     stage("mvn build") {
-        def mvn = tool name: "maven3.6.0", type: "maven"
         sh "mvn clean install"
     }
 
