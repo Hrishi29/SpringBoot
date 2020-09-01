@@ -13,4 +13,4 @@ WORKDIR /
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
-CMD [ "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /mySpring.jar" ]
+CMD [ "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar -Dspring.profiles.active=prod /mySpring.jar" ]
